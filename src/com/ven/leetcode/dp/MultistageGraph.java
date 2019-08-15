@@ -8,12 +8,12 @@ public class MultistageGraph {
 	static class Result {
 		int cost;
 		List<Integer> path = new ArrayList<Integer>();
+
 		@Override
 		public String toString() {
 			return "Result [cost=" + cost + ", path=" + path + "]";
 		}
-		
-		
+
 	}
 
 	// Driver code
@@ -49,15 +49,26 @@ public class MultistageGraph {
 			cost[i] = Integer.MAX_VALUE;
 			int min = Integer.MAX_VALUE;
 			int vertex = Integer.MAX_VALUE;
-			for (int j = i+1; j < N; j++) {
-				if(graph[i][j] == Integer.MAX_VALUE) {
+			for (int j = i + 1; j < N; j++) {
+				if (graph[i][j] == Integer.MAX_VALUE) {
 					continue;
 				}
+				System.out.println("i:" + i +" , j:"+j);
+				System.out.println("cost[i]:" + cost[i]);
+				System.out.println("graph[i][j]:" + graph[i][j]+", cost[j]:" + cost[j]);
 				
-				min = Math.min(cost[i], graph[i][j]+cost[j]);
+				System.out.println("-------------------------------------------");
+				if(min > Math.min(min, graph[i][j] + cost[j])) {
+					path[i] = i;
+					System.out.println("path[i]: "+path[i]);
+				}
+				min = Math.min(min, graph[i][j] + cost[j]);
 			}
+			System.out.println("min" + min);
+			System.out.println("i:" + i);
+			System.out.println("-------------------------------------------");
 			cost[i] = min;
-			res.path.add(0, vertex);
+			res.path.add(0, path[i]);
 		}
 		res.cost = cost[0];
 		return res;

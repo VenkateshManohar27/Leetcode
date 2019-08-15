@@ -28,60 +28,64 @@ import java.util.Comparator;
 class Item {
 	private double weight;
 	private double value;
-	private Double cost;
-	
+	private Double profit;
+
 	public Item(int wt, int val) {
 		this.weight = wt;
 		this.value = val;
-		this.cost = (double) (value/weight);
+		this.profit = (double) (value / weight);
 	}
 
 	public double getWeight() {
 		return weight;
 	}
+
 	public double getValue() {
 		return value;
 	}
 
-	public Double getCost() {
-		return cost;
+	public Double getProfit() {
+		return profit;
 	}
 
 	@Override
 	public String toString() {
-		return "Item [weight=" + weight + ", value=" + value + ", cost=" + cost + "]";
+		return "Item [weight=" + weight + ", value=" + value + ", cost=" + profit + "]";
 	}
-	
-	
-}
-public class FractionalKnapSack {
 
-	public static double getMaxValue(int[] weights, int[] values, int capacity) {
-		Item[] items = new Item[weights.length];
-		for (int i = 0; i < items.length; i++) {
-			items[i] =  new Item(weights[i], values[i]);
+}
+
+public class FractionalKnapSack {
+	public static double getMaxValue(int[] wt, int[] val, int capacity) {
+		Item[] items = new Item[wt.length];
+		for (int i = 0; i < wt.length; i++) {
+			items[i] = new Item(wt[i], val[i]);
 		}
-		Arrays.sort(items, (Item item1, Item item2) -> {
-				return item2.getCost().compareTo(item1.getCost());
+
+		Arrays.sort(items, new Comparator<Item>() {
+
+			@Override
+			public int compare(Item o1, Item o2) {
+
+				return o2.getProfit().compareTo(o1.getProfit());
 			}
-		);
-		double max = 0d;
-		//for (int i = 0; i < items.length; i++) {
-		for(Item item: items) {
-		if(capacity - item.getWeight()>=0) {
-				capacity = (int) (capacity - item.getWeight());
-				max += item.getValue();
-			}else {
-				 // item cant be picked whole 
-                double fraction = ((double)capacity/(double)item.getWeight()); 
-                max += (item.getValue()*fraction); 
-                capacity = (int)(capacity - (item.getWeight()*fraction)); 
-                break; 
+
+		});
+		Arrays.stream(items).forEach(System.out::println);
+		int max = 0;
+		for (int i = 0; i < items.length; i++) {
+			if (capacity - items[i].getWeight() > 0) {
+				max += items[i].getValue();
+				capacity -=  items[i].getWeight();
+			} else {
+				double fraction = capacity/items[i].getWeight();
+				max += fraction* items[i].getValue();
+				capacity = (int) (capacity - (items[i].getWeight() * fraction));
 			}
 		}
 		return max;
 	}
-	
+
 	// Time complexity O(n log n)
 	public static void main(String[] args) {
 		int[] wt = { 10, 40, 20, 30 };
@@ -92,4 +96,5 @@ public class FractionalKnapSack {
 		System.out.println("Maximum value we can obtain = " + maxValue);
 
 	}
+
 }

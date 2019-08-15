@@ -2,7 +2,7 @@ package com.ven.leetcode.greedy;
 
 public class HuffmanNode { 
 	  
-    private int data; 
+    private int frequency; 
     private char c; 
   
     HuffmanNode left; 
@@ -10,12 +10,12 @@ public class HuffmanNode {
     
 	public HuffmanNode( char c, int data) {
 		super();
-		this.data = data;
+		this.frequency = data;
 		this.c = c;
 	}
 
-	public int getData() {
-		return data;
+	public int getFrequency() {
+		return frequency;
 	}
 
 	public char getC() {

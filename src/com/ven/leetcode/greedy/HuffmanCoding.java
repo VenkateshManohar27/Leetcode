@@ -10,7 +10,7 @@ public class HuffmanCoding {
 			return;
 		}
 		PriorityQueue<HuffmanNode> pq = new PriorityQueue<HuffmanNode>(frequency.length, (node1, node2) -> {
-			return node1.getData() - node2.getData();
+			return node1.getFrequency() - node2.getFrequency();
 		});
 		for (int i = 0; i < frequency.length; i++) {
 			HuffmanNode node = new HuffmanNode(chars[i], frequency[i]);
@@ -19,7 +19,7 @@ public class HuffmanCoding {
 		while (pq.size() > 1) {
 			HuffmanNode node1 = pq.poll();
 			HuffmanNode node2 = pq.poll();
-			HuffmanNode node3 = new HuffmanNode('#', node1.getData() + node2.getData());
+			HuffmanNode node3 = new HuffmanNode('#', node1.getFrequency() + node2.getFrequency());
 			node3.left = node1;
 			node3.right = node2;
 			pq.add(node3);

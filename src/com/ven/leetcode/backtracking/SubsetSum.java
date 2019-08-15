@@ -1,59 +1,32 @@
 package com.ven.leetcode.backtracking;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-//NOT SOLVED YET
-
 public class SubsetSum {
-	public List<List<Integer>> fourSum(int[] nums, int target) {
-		List<List<Integer>> result = new ArrayList<List<Integer>>();
-		HashSet<String> set = new HashSet<>();
-		Arrays.sort(nums);
-		sum(nums, 0, 0, 0,target, new ArrayList<Integer>(), set, result);
-		return result;
+	
+	
+	
+	
+	
+	public static void main(String args[]) {
+		int set[] = { 3, 34, 4, 12, 5, 2 };
+		int sum = 9;
+		int n = set.length;
+		if (isSubsetSum(set, n, sum) == true)
+			System.out.println("Found a subset" + " with given sum");
+		else
+			System.out.println("No subset with" + " given sum");
 	}
 
-	private void sum(int[] nums, int currSum, int index, int count, int target, List<Integer> currList,
-			HashSet<String> set, List<List<Integer>> result) {
-
-		if (currSum == target && count == 4 && currList.size()>0) {
-			if(set.contains(currList.toString())) {
-				return;
-			}
-			result.add(currList);
-			set.add(currList.toString());
-			return;
-			//return true;
-		}
-
-		if (count >= 4 || index >= nums.length) {
-			return;
-			//return false;
-		}
-
-		List<Integer> cloneList = new ArrayList<Integer>(currList);
-		//List<Integer> cloneList2 = new ArrayList<Integer>(currList);
-		cloneList.add(nums[index]);
-		/*if (sum(nums, currSum + nums[index], index + 1, target, cloneList1, result)) {
-
+	public static boolean isSubsetSum(int[] set, int n, int sum) {
+		if(sum == 0) {
 			return true;
-		}*/
-		sum(nums, currSum + nums[index], index + 1, count+1, target, cloneList, set, result);
-		/*if (sum(nums, currSum, index + 1, target, cloneList2, result)) {
-
-			return true;
-		}*/
-		sum(nums, currSum, index + 1, count, target, currList, set, result);
-		return;
-	}
-
-	public static void main(String[] args) {
-		SubsetSum ss = new SubsetSum();
-		//List<List<Integer>> result = ss.sum(new int[] { 5, 10, 12, 13, 15, 18 }, 30);
-		//System.out.println(result);
-		List<List<Integer>> result  = ss.fourSum(new int[] { 1, 0, -1, 0, -2, 2 }, 0);
-		System.out.println(result);
+		}
+		
+		if(n==0 || sum < 0) {
+			return false;
+		}
+		
+		
+		
+		return isSubsetSum(set, n-1, sum - set[n-1])|| isSubsetSum(set, n-1, sum);
 	}
 }

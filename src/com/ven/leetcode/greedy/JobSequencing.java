@@ -24,70 +24,71 @@ import java.util.Collections;
  *
  */
 public class JobSequencing {
-	static class Job implements Comparable<Job> {
-		char id;
-		int deadline;
-		int profit;
-
-		@Override
-		public int compareTo(Job otherJob) {
-			return otherJob.profit - this.profit;
-		}
-
-		public Job(char id, int deadline, int profit) {
-			this.id = id;
-			this.deadline = deadline;
-			this.profit = profit;
-		}
-	}
-
-	public ArrayList<Job> sequence(ArrayList<Job> jobs) {
-		Collections.sort(jobs);
-		ArrayList<Job> result = new ArrayList<>();
-		/*
-		 * for (Job job : jobs) { System.out.println(job.id + " - " + job.profit); }
-		 */
+	
+	private ArrayList<Job> sequence(ArrayList<Job> jobs) {
+		ArrayList<Job> sequence = new ArrayList<>();
+		jobs.sort((j1,j2)->{
+			return j2.getProfits() - j1.getProfits();
+		});
 		boolean[] slots = new boolean[jobs.size()];
-		for (Job job : jobs) {
-			for (int i = job.deadline - 1; i >= 0; i--) {
-				if (job.deadline >= i && !slots[i]) {
-					result.add(job);
+		
+		for(Job job: jobs) {
+			for(int i = job.getDeadlines()-1; i>=0 ;i-- ) {
+				if(!slots[i]  ) {
 					slots[i] = true;
+					sequence.add(job);
 					break;
 				}
-
 			}
 		}
-
-		return result;
+		
+		return sequence;
 	}
 
 	public static void main(String[] args) {
 		JobSequencing jobSequencing = new JobSequencing();
 		ArrayList<Job> jobs = new ArrayList<Job>();
-		jobs.add(new Job('a', 2, 100));
-		jobs.add(new Job('b', 1, 19));
-		jobs.add(new Job('c', 2, 27));
-		jobs.add(new Job('d', 1, 25));
-		jobs.add(new Job('e', 3, 15));
+		jobs.add(new Job("1", 2, 20));
+		jobs.add(new Job("2", 2, 15));
+		jobs.add(new Job("3", 1, 10));
+		jobs.add(new Job("4", 3, 5));
+		jobs.add(new Job("5", 3, 1));
 		ArrayList<Job> result = jobSequencing.sequence(jobs);
 
 		for (Job job : result) {
-			System.out.println(job.id + " - " + job.profit);
+			System.out.println(job);
 		}
 		System.out.println("------------------------------------------");
 		jobs.clear();
 		result.clear();
 		
-		jobs.add(new Job('a', 4, 20));
-		jobs.add(new Job('b', 1, 10));
-		jobs.add(new Job('c', 1, 40));
-		jobs.add(new Job('d', 1, 30));
+		jobs.add(new Job("1", 4, 20));
+		jobs.add(new Job("2", 1, 10));
+		jobs.add(new Job("3", 1, 40));
+		jobs.add(new Job("4", 1, 30));
 		result = jobSequencing.sequence(jobs);
 
 		for (Job job : result) {
-			System.out.println(job.id + " - " + job.profit);
+			System.out.println(job);
+		}
+		System.out.println("------------------------------------------");
+		jobs.clear();
+		result.clear();
+		
+		jobs.add(new Job("1", 3, 35));
+		jobs.add(new Job("2", 4, 30));
+		jobs.add(new Job("3", 4, 25));
+		jobs.add(new Job("4", 2, 20));
+		jobs.add(new Job("5", 3, 15));
+		jobs.add(new Job("6", 1, 12));
+		jobs.add(new Job("7", 2, 5));
+		result = jobSequencing.sequence(jobs);
+
+		for (Job job : result) {
+			System.out.println(job);
 		}
 	}
+
+	
 
 }
