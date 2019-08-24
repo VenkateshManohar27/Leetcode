@@ -73,7 +73,24 @@ public class FractionalKnapSack {
 		});
 		Arrays.stream(items).forEach(System.out::println);
 		int max = 0;
+		int index = 0;
+		
+		while(capacity > 0) {
+			System.out.println("index:"+index);
+			if (capacity - items[index].getWeight() > 0) {
+				max += items[index].getValue();
+				capacity -=  items[index].getWeight();
+				index++;
+			} else {
+				double fraction = capacity/items[index].getWeight();
+				max += fraction* items[index].getValue();
+				capacity = (int) (capacity - (items[index].getWeight() * fraction));
+				index++;
+			}
+		}
+		/*max=0;
 		for (int i = 0; i < items.length; i++) {
+			System.out.println("index:"+i);
 			if (capacity - items[i].getWeight() > 0) {
 				max += items[i].getValue();
 				capacity -=  items[i].getWeight();
@@ -82,14 +99,14 @@ public class FractionalKnapSack {
 				max += fraction* items[i].getValue();
 				capacity = (int) (capacity - (items[i].getWeight() * fraction));
 			}
-		}
+		}*/
 		return max;
 	}
 
 	// Time complexity O(n log n)
 	public static void main(String[] args) {
-		int[] wt = { 10, 40, 20, 30 };
-		int[] val = { 60, 40, 100, 120 };
+		int[] wt = { 10, 40, 20, 30 , 10};
+		int[] val = { 60, 40, 100, 120 , 10};
 		int capacity = 50;
 
 		double maxValue = getMaxValue(wt, val, capacity);

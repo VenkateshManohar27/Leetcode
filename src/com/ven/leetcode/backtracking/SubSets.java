@@ -30,7 +30,11 @@ public class SubSets {
 		subsets.add(new ArrayList<>(list));
 
 		for (int i = index; i < nums.length; i++) {
+			 if(i>index && nums[i-1]==nums[i]) { 
+				continue;
+			}
 			list.add(nums[i]);
+			
 			generate(i + 1, nums, list, subsets);
 			list.remove(list.size() - 1);
 		}
@@ -40,6 +44,7 @@ public class SubSets {
 	public static void main(String[] args) {
 		SubSets ss = new SubSets();
 		System.out.println(ss.subsets(new int[] { 1, 2, 3 }));
+		System.out.println(ss.subsets(new int[] { 1, 1, 2 }));
 
 	}
 }
