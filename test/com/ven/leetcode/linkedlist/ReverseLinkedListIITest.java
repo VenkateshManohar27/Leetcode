@@ -1,8 +1,9 @@
 package com.ven.leetcode.linkedlist;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 class ReverseLinkedListIITest {
@@ -52,6 +53,23 @@ class ReverseLinkedListIITest {
 		assertEquals(3, res.next.next.val);
 		assertEquals(2, res.next.next.next.val);
 		assertEquals(1, res.next.next.next.next.val);
+		assertNull(res.next.next.next.next.next);
+	}
+	
+	@Test
+	void testHappyPath3() {
+		ListNode head = new ListNode(1);
+		head.next = new ListNode(2);
+		head.next.next = new ListNode(3);
+		head.next.next.next = new ListNode(4);
+		head.next.next.next.next = new ListNode(5);
+		ListNode res = rll.reverseBetween(head,1,4);
+		assertNotNull(res);
+		assertEquals(4, res.val);
+		assertEquals(3, res.next.val);
+		assertEquals(2, res.next.next.val);
+		assertEquals(1, res.next.next.next.val);
+		assertEquals(5, res.next.next.next.next.val);
 		assertNull(res.next.next.next.next.next);
 	}
 

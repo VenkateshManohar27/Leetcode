@@ -17,51 +17,29 @@ public class ReverseLinkedListII {
 		if (head == null) {
 			return head;
 		}
-
-		ListNode result = head;
-		ListNode resultTail = null;
-		/*head = head.next;
-		resultTail.next = null;*/
-		ListNode reverse = null;
-		ListNode reverseEnd = null;
-		int count = 1;
-		ListNode node = head;
-		while (node != null) {
-			
-			while(count < m && node != null) {
-				node = node.next;
-				resultTail = node;
-				count++;
-			}
-			
-			
-			if (m == count) {
-				reverse = node;
-				node = node.next;
-				reverseEnd = reverse;
-				reverse.next = null;
-				count++;
-				continue;
-			}
-			if (count > m && count <= n) {
-				ListNode temp = node;
-				node = node.next;
-				temp.next = reverse;
-				reverse = temp;
-				count++;
-				continue;
-			}
-			resultTail.next = head;
-			head = head.next;
-			resultTail = resultTail.next;
-			resultTail.next = null;
-			count++;
-
+		ListNode dummy = new ListNode(0);
+		dummy.next = head;
+		int count = m;
+		ListNode node = dummy;
+		while (count > 1) {
+			node = node.next;
+			count--;
 		}
-		resultTail.next = reverse;
-		if(reverseEnd != null)
+		ListNode reverseStart = node;
+		ListNode reverse = null;
+		ListNode reverseEnd = node.next;
+		head = node.next;
+		reverseStart.next = null;
+		while (m <= n) {
+			ListNode temp = head;
+			head = head.next;
+			temp.next = reverse;
+			reverse = temp;
+			m++;
+		}
+		reverseStart.next = reverse;
 		reverseEnd.next = head;
 
-		return result;
+		return dummy.next;
 	}
 }
