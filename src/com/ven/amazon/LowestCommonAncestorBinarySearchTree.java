@@ -1,4 +1,4 @@
-package com.ven.leetcode.tree;
+package com.ven.amazon;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,43 +7,59 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * Given the root node of a binary search tree (BST) and a value. You need to
- * find the node in the BST that the node's value equals the given value. Return
- * the subtree rooted with that node. If such node doesn't exist, you should
- * return NULL.
+ * Given a binary search tree (BST), find the lowest common ancestor (LCA) of
+ * two given nodes in the BST.
  * 
- * For example,
+ * According to the definition of LCA on Wikipedia: “The lowest common ancestor
+ * is defined between two nodes p and q as the lowest node in T that has both p
+ * and q as descendants (where we allow a node to be a descendant of itself).”
  * 
- * Given the tree: 4 / \ 2 7 / \ 1 3
+ * Given binary search tree: root = [6,2,8,0,4,7,9,null,null,3,5]
  * 
- * And the value to search: 2 You should return this subtree:
  * 
- * 2 / \ 1 3 In the example above, if we want to search the value 5, since there
- * is no node with value 5, we should return NULL.
  * 
- * Note that an empty tree is represented by NULL, therefore you would see the
- * expected output (serialized tree format) as [], not null.
  * 
- * I/P: [4,2,7,1,3] 
- * 2
- * O/P: [2, 1, 3, null, null, null, null]
+ * Example 1:
+ * 
+ * Input: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8 Output: 6
+ * Explanation: The LCA of nodes 2 and 8 is 6. Example 2:
+ * 
+ * Input: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 4 Output: 2
+ * Explanation: The LCA of nodes 2 and 4 is 2, since a node can be a descendant
+ * of itself according to the LCA definition.
+ * 
+ * 
+ * Note:
+ * 
+ * All of the nodes' values will be unique. p and q are different and both
+ * values will exist in the BST.
  * 
  * @author Venkatesh Manohar
  *
  */
-public class SearchBinarySearchTree {
-	public TreeNode searchBST(TreeNode root, int val) {
+class TreeNode {
+	int val;
+	TreeNode left;
+	TreeNode right;
+
+	TreeNode(int x) {
+		val = x;
+	}
+}
+
+public class LowestCommonAncestorBinarySearchTree {
+	public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
 		if (root == null) {
 			return root;
 		}
-		if (root.val == val) {
-			return root;
-		} else if (root.val > val) {
-			return searchBST(root.left, val);
-		} else if (root.val < val) {
-			return searchBST(root.right, val);
+		if (p.val < root.val && q.val < root.val) {
+			return lowestCommonAncestor(root.left, p, q);
 		}
-		return null;
+
+		if (p.val > root.val && q.val > root.val) {
+			return lowestCommonAncestor(root.right, p, q);
+		}
+		return root;
 	}
 
 	public static TreeNode stringToTreeNode(String input) {
@@ -119,9 +135,12 @@ public class SearchBinarySearchTree {
 		while ((line = in.readLine()) != null) {
 			TreeNode root = stringToTreeNode(line);
 			line = in.readLine();
-			int val = Integer.parseInt(line);
+			int p = Integer.parseInt(line);
+			line = in.readLine();
+			int q = Integer.parseInt(line);
 
-			TreeNode ret = new SearchBinarySearchTree().searchBST(root, val);
+			TreeNode ret = new LowestCommonAncestorBinarySearchTree().lowestCommonAncestor(root, new TreeNode(p),
+					new TreeNode(q));
 
 			String out = treeNodeToString(ret);
 
