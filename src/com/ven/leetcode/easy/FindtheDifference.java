@@ -1,5 +1,7 @@
 package com.ven.leetcode.easy;
 
+import java.util.Arrays;
+
 /**
  * Given two strings s and t which consist of only lowercase letters.
  * 
@@ -42,11 +44,31 @@ public class FindtheDifference {
 
 		return (char) ('a' + index);
 	}
+	
+	public char findTheDifference2(String s, String t) {
+		char[] charsInS =  s.toCharArray();
+		char[] charsInT = t.toCharArray();
+		Arrays.sort(charsInS);
+		Arrays.sort(charsInT);
+		
+		int i = 0;
+		while(i<charsInS.length) {
+			if(charsInS[i] != charsInT[i]) {
+				return charsInT[i];
+			}
+			i++;
+		}
+		
+		return charsInT[i];
+	}
 
 	public static void main(String[] args) {
 		FindtheDifference fd = new FindtheDifference();
 		System.out.println(fd.findTheDifference("abcd", "abcde"));
 		System.out.println(fd.findTheDifference("a", "aa"));
+		
+		System.out.println(fd.findTheDifference2("abcd", "abcde"));
+		System.out.println(fd.findTheDifference2("a", "aa"));
 
 	}
 }

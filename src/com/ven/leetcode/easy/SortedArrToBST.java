@@ -17,4 +17,17 @@ public class SortedArrToBST {
 		
 		return node;
 	}
+	
+	 
+	    
+	    public TreeNode generate(int low, int high, int[] nums){
+	        if(low>high){
+	            return null;
+	        }
+	        int mid = (low+high+1)/2;
+	        TreeNode node = new TreeNode(nums[mid]);
+	        node.left = generate(low, mid-1,nums);
+	        node.right = generate(mid+1, high ,nums);
+	        return node;
+	    }
 }
