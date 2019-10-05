@@ -33,7 +33,7 @@ public class EggDropping {
 		return min + 1;
 	}
 
-	private static int eggDropIterative(int numOfEggs, int numOfFloors) {
+	public static int eggDropIterative(int numOfEggs, int numOfFloors) {
 		int[][] memo = new int[numOfFloors + 1][numOfEggs + 1];
 
 		for (int floor = 0; floor <= numOfFloors; floor++) {
