@@ -1,42 +1,38 @@
 package com.onlineassesment;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.HashMap;
 
 public class Solution {
-	public List<Integer> cellCompete(int[] states, int days)
-    {
-        
-        int temp[] = new int [states.length ];
-        for (int i=1; i<=days; i++ ){
-            for(int j = 0; j < states.length; j++){
-                int leftNeighbour = (j-1 < 0)? 0: states[j-1];
-                int rightNeighbour = (j+1 >= states.length)? 0: states[j+1];
-                boolean result = setState(leftNeighbour, rightNeighbour);
-                temp[j] = (result)? 0: 1;
-                
-            }
-            states = Arrays.copyOf(temp, temp.length);
-        } 
-        return Arrays.stream(states).boxed().collect(Collectors.toList());
-    }
-    
-    private boolean setState(int leftNeighbour,int rightNeighbour){
-        if(leftNeighbour ==1 && rightNeighbour ==1){
-            return true;
-        }else if(leftNeighbour == 0 && rightNeighbour == 0) {
-            return true;
-        }else{
-            return false;
-        }
-        
-    }
-    
-    public static void main(String[] args) {
-		Solution s = new Solution();
-		System.out.println(s.cellCompete(new int[] {1, 0,0,0,0,1,0,0} , 1));
+	public int[] twoSum(int[] nums, int target) {
+		if(nums == null || nums.length == 0)
+			return new int[] {};
+
+		HashMap<Integer, Integer> map = new HashMap<>();
 		
-		System.out.println(s.cellCompete(new int[] {1, 1,1,0,1,1,1,1} , 2));
+		for(int i=0; i< nums.length;i++) {
+			int complement = target - nums[i];
+			if(map.containsKey(complement)) {
+				return new int[] {map.get(complement), i};
+			}else {
+				map.put(nums[i], i);
+			}
+		}
+		
+		return new int[] {};
+	}
+	
+	public static void main(String[] args) {
+		Solution s = new Solution();
+		int [] res = s.twoSum(new int[] {2,7,11,15}, 9);
+		System.out.println("target 9 "+res[0]+" "+res[1]);
+		
+		int[] input2 = new int[] {-9,-7,-5,-3,-2, -1, 0, 10,12};
+		res = s.twoSum(input2, -4);
+		System.out.println("target -4 "+res[0]+" "+res[1]);
+		
+		int[] input3 = new int[] {1,2,3,4,4,9,56,90};
+		res = s.twoSum(input3, 8);
+		System.out.println("target 8 "+res[0]+" "+res[1]);
+		
 	}
 }

@@ -5,24 +5,27 @@ import java.util.List;
 
 public class Permutations {
 	public List<List<Integer>> permute(int[] nums) {
-		List<List<Integer>> p = new ArrayList<List<Integer>>();
+		List<List<Integer>> permutations = new ArrayList<>();
 		if (nums == null || nums.length == 0) {
-			return p;
+			return permutations;
 		}
-		helper(new ArrayList<Integer>(), nums, p);
-		return p;
+		helper(nums, new ArrayList<Integer>(), permutations);
+
+		return permutations;
 	}
 
-	private void helper(ArrayList<Integer> tempList, int[] nums, List<List<Integer>> p) {
-		if (tempList.size() == nums.length) {
-			p.add(new ArrayList<>(tempList));
+	private void helper(int[] nums, ArrayList<Integer> list, List<List<Integer>> permutations) {
+		if (nums.length == list.size()) {
+			permutations.add(new ArrayList<>(list));
 			return;
 		}
-		for (int i = 0; i <= tempList.size(); i++) {
-			tempList.add(i, nums[tempList.size()]);
-			helper(tempList, nums, p);
-			tempList.remove(i);
+
+		for (int i = 0; i <= list.size(); i++) {
+			list.add(i, nums[list.size()]);
+			helper(nums, list, permutations);
+			list.remove(i);
 		}
+
 	}
 
 	public static void main(String[] args) {

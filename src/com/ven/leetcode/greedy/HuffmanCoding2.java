@@ -81,6 +81,8 @@ public class HuffmanCoding2 {
 		result = hc.huffmanDecoding("1111111111110001010101010100010010101010101");
 		System.out.println("Decoded Data = " + result);
 		System.out.println("Matching :" + result.equals("AAAAAABCCCCCCDDEEEEE"));
+		
+		hc.createHuffmanCode("BCCABBDDAECCBBAEDDCC");
 	}
 
 	
