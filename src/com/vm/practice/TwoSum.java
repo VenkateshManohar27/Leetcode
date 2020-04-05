@@ -22,13 +22,14 @@ import com.ven.utility.ArrayUtility;
  */
 public class TwoSum {
 	public int[] twoSum(int[] nums, int target) {
-		HashMap<Integer, Integer> complement = new HashMap<>();
+		HashMap<Integer, Integer> map = new HashMap<>();
+		
 		for (int i = 0; i < nums.length; i++) {
-			if(complement.containsKey(target - nums[i])) {
-				return new int[] {complement.get(target - nums[i]), i};
-			}else {
-				complement.put(nums[i], i);
+			int diff = target - nums[i];
+			if(map.containsKey(diff)) {
+				return new int[] {map.get(diff), i};
 			}
+			map.put(nums[i], i);
 		}
 		return null;
 	}

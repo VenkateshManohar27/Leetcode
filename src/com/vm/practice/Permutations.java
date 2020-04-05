@@ -5,28 +5,37 @@ import java.util.List;
 
 public class Permutations {
 	public List<List<Integer>> permute(int[] nums) {
-		List<List<Integer>> permutation = new ArrayList<>();
-		if (nums == null || nums.length == 0) {
-			return permutation;
+		List<List<Integer>> permutations = new ArrayList<>();
+		if(nums == null || nums.length == 0) {
+			return permutations;
 		}
-		helper(nums, new ArrayList<Integer>(), permutation);
-		return permutation;
+		boolean used[] = new boolean[nums.length];
+		helper(nums, used, new ArrayList<>(), permutations);
+		return permutations;
 	}
 	
-	
-
-	private void helper(int[] nums, ArrayList<Integer> list, List<List<Integer>> permutation) {
-		if(nums.length == list.size()) {
-			permutation.add(new ArrayList<>(list));
+	private void helper(int[] nums, boolean[] used, ArrayList<Integer> li, List<List<Integer>> permutations) {
+		if(li.size() == nums.length) {
+			
+			permutations.add(new ArrayList<>(li));
 			return;
 		}
-		for (int i = 0; i <= list.size(); i++) {
-			list.add(i, nums[list.size()]);
-			helper(nums, list, permutation);
-			list.remove(i);
+		
+		for (int i = 0; i < nums.length; i++) {
+			if(!used[i]) {
+				used[i] = true;
+				li.add(nums[i]);
+				helper(nums, used, li, permutations);
+				li.remove(li.size()-1);
+				used[i]=false;
+			}
 		}
 		
 	}
+
+
+
+
 
 
 

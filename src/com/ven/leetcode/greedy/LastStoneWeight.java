@@ -1,6 +1,7 @@
 package com.ven.leetcode.greedy;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
@@ -29,32 +30,36 @@ import java.util.PriorityQueue;
  */
 public class LastStoneWeight {
 	public int lastStoneWeight(int[] stones) {
-		if (stones == null || stones.length == 0) {
-			return 0;
+		PriorityQueue<Integer> pqIntegers = new PriorityQueue<>(new Comparator<Integer>() {
+
+			@Override
+			public int compare(Integer o1, Integer o2) {
+				// TODO Auto-generated method stub
+				return o2 - o1;
+			}
+		});
+		for (int i = 0; i < stones.length; i++) {
+			pqIntegers.add(stones[i]);
 		}
 
-		PriorityQueue<Integer> pQueue = new PriorityQueue<Integer>(Collections.reverseOrder());
-		for (int i : stones) {
-			pQueue.add(i);
-		}
-
-		while (pQueue.size() > 1) {
-			Integer y = pQueue.poll();
-			Integer x = pQueue.poll();
+		while (pqIntegers.size() > 1) {
+			int x = pqIntegers.poll();
+			int y = pqIntegers.poll();
 			if (x != y) {
-				pQueue.add(y - x);
+				pqIntegers.add(x - y);
 			}
 		}
-		if (!pQueue.isEmpty()) {
-			return pQueue.poll();
-		}
 
-		return 0;
+		if (!pqIntegers.isEmpty()) {
+			return pqIntegers.poll();
+		} else {
+			return 0;
+		}
 	}
-	
+
 	public static void main(String[] args) {
-		LastStoneWeight lsw =  new LastStoneWeight();
-		int result = lsw.lastStoneWeight(new int[] {2,7,4,1,8,1});
-		System.out.println("Result : "+result+", Match:"+(1==result));
+		LastStoneWeight lsw = new LastStoneWeight();
+		int result = lsw.lastStoneWeight(new int[] { 2, 7, 4, 1, 8, 1 });
+		System.out.println("Result : " + result + ", Match:" + (1 == result));
 	}
 }
