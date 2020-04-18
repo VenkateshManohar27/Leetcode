@@ -1,7 +1,5 @@
 package com.ven.leetcode.unionfind;
 
-import com.ven.utility.ArrayUtility;
-
 /**
  * 
  * Given a 2D board containing 'X' and 'O' (the letter O), capture all regions
