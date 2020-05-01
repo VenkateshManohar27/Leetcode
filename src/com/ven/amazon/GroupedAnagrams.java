@@ -20,34 +20,32 @@ import java.util.List;
  */
 public class GroupedAnagrams {
 	public List<List<String>> groupAnagrams(String[] strs) {
-		List<List<String>> groups = new ArrayList<List<String>>();
-
+		List<List<String>> groups = new ArrayList<>();
 		if (strs == null || strs.length == 0) {
 			return groups;
 		}
+
 		HashMap<String, Integer> map = new HashMap<>();
 		int index = 0;
-
-		for (String s : strs) {
-			char[] c = s.toCharArray();
-			Arrays.sort(c);
-			String st = new String(c);
-			if (map.containsKey(st)) {
-				int ind = map.get(st);
-				groups.get(ind).add(s);
+		for (int i = 0; i < strs.length; i++) {
+			char[] chrs = strs[i].toCharArray();
+			Arrays.sort(chrs);
+			String s = new String(chrs);
+			if (map.containsKey(s)) {
+				groups.get(map.get(s)).add(strs[i]);
 			} else {
-				map.put(st, index);
-				groups.add(new ArrayList<String>());
-				groups.get(index).add(s);
+				groups.add(new ArrayList<>());
+				groups.get(index).add(strs[i]);
+				map.put(s, index);
 				index++;
 			}
 		}
 		return groups;
 	}
-	
+
 	public static void main(String[] args) {
 		GroupedAnagrams ga = new GroupedAnagrams();
-		List<List<String>> groups = ga.groupAnagrams(new String[] {"eat", "tea", "tan", "ate", "nat", "bat"});
+		List<List<String>> groups = ga.groupAnagrams(new String[] { "eat", "tea", "tan", "ate", "nat", "bat" });
 		System.out.println(groups);
 	}
 }
