@@ -7,32 +7,19 @@ import java.util.stream.Collectors;
 
 public class GrayCode {
 	public List<Integer> grayCode(int n) {
-		List<Integer> codes = new ArrayList<Integer>();
-		if(n == 0) {
-			codes.add(0);
-			return codes;
-		}
-		helper(n, new ArrayList<>(), codes);
-		return codes;
-	}
-	
-	private void helper(int n, List<Integer> s, List<Integer> codes) {
-		if(s.size() == n) {
-			StringBuilder sb = new StringBuilder();
-			for(int a :s) {
-				sb.append(a);
+		List<Integer> res = new ArrayList<>();
+		res.add(0);
+
+		for (int i = 1; i <= n; i++) {
+			int size = res.size(), base = 1 << (i - 1);
+			for (int j = size - 1; j >= 0; j--) {
+				res.add(base + res.get(j));
 			}
-			codes.add(Integer.parseInt(sb.toString(), 2));
-			return;
 		}
-		for (int i = 0; i <=1; i++) {
-			s.add(i);
-			helper(n,s , codes);
-			s.remove(s.size()-1);
-		}
-		
+		return res;
+
 	}
-	
+
 	public static void main(String[] args) {
 		GrayCode gc = new GrayCode();
 		System.out.println(gc.grayCode(0));
