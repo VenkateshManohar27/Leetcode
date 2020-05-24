@@ -2,6 +2,8 @@ package com.onlineassesment;
 
 import java.util.HashMap;
 
+import com.ven.leetcode.linkedlist.ListNode;
+
 public class Solution {
 	public int[] twoSum(int[] nums, int target) {
 		if(nums == null || nums.length == 0)
