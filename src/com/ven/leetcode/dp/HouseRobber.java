@@ -64,4 +64,21 @@ public class HouseRobber {
 		}
 		return dp[dp.length - 1];
 	}
+	
+	public int rob3(int[] nums) {
+		if (nums == null || nums.length == 0) {
+			return 0;
+		}
+
+		int prev = 0;
+		int prevOfPrev = 0;
+		for (int i = 0; i < nums.length; i++) {
+			int rob = nums[i] + prevOfPrev;
+			prevOfPrev = prev;
+			prev = Math.max(prev, rob);
+		}
+
+		return Math.max(prev, prevOfPrev);
+	}
+	
 }

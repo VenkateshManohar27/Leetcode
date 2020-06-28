@@ -12,5 +12,12 @@ class HouseRobberTest {
 		assertEquals(12, hr.rob(new int[] {2,7,9,3,1}));
 		assertEquals(6, hr.rob(new int[] {1,1,5,3}));
 	}
+	
+	@Test
+	void test3() {
+		assertEquals(4, hr.rob3(new int[] {1,2,3,1}));
+		assertEquals(12, hr.rob3(new int[] {2,7,9,3,1}));
+		assertEquals(6, hr.rob3(new int[] {1,1,5,3}));
+	}
 
 }
