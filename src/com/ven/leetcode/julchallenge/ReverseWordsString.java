@@ -1,11 +1,13 @@
 package com.ven.leetcode.julchallenge;
 
-import java.util.Arrays;
-
 public class ReverseWordsString {
 	public String reverseWords(String s) {
-		String[] strs = s.split(" ");
-		int i = 0;
+		if(s ==  null || s.length() == 0) {
+			return s;
+		}
+		s = s.trim();
+		String[] strs = s.split("\\s+");
+		/*int i = 0;
 		int j = strs.length - 1;
 
 		while (i < j) {
@@ -21,16 +23,25 @@ public class ReverseWordsString {
 			i++;
 			j--;
 		}
-		return String.join(" ", strs);
+		return String.join(" ", strs);*/
+		
+		StringBuilder sb = new StringBuilder();
+		for (int k = strs.length -1; k >=0; k--) {
+			sb.append(strs[k]+ " ");
+			if(k != 0) {
+				sb.append(" ");
+			}
+		}
+		return sb.toString().trim();
 	}
 
 	public static void main(String[] args) {
 		ReverseWordsString r = new ReverseWordsString();
 		System.out.println(r.reverseWords(""));
-		
+
 		System.out.println(r.reverseWords("the sky is blue"));
 		System.out.println(r.reverseWords("  hello world!  "));
 		System.out.println(r.reverseWords("a good   example"));
-		
+
 	}
 }
