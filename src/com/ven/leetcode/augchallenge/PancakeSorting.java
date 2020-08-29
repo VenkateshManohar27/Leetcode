@@ -55,7 +55,6 @@ public class PancakeSorting {
 			li.add(idx+1);
 			li.add(l);
 		}
-		ArrayUtility.print(A);
 		return li;
 	}
 
