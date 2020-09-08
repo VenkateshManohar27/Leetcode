@@ -15,20 +15,24 @@ package com.ven.leetcode.sepchallenge;
  *
  */
 public class SumofRootToLeafBinaryNumbers {
-	public int sumRootToLeaf(TreeNode root) {
-		if (root == null)
-			return 0;
-		return helper(root, "");
-	}
-
-	private int helper(TreeNode node, String s) {
-		if (node == null)
-			return 0;
-		if (node.left == null && node.right == null) {
-			return Integer.parseInt(s + node.val, 2);
-		}
-		return helper(node.left, s + node.val) + helper(node.right, s + node.val);
-	}
+	public int sumRootToLeafUtil(TreeNode root, int val) {
+        if(root == null)
+            return 0;
+        
+        val = val * 2 + root.val;
+        
+        //if leaf node
+        if(root.left == null && root.right == null) {
+            return val;
+        }
+        
+        return sumRootToLeafUtil(root.left, val)
+                 + sumRootToLeafUtil(root.right, val);
+    }
+    
+    public int sumRootToLeaf(TreeNode root) {
+        return sumRootToLeafUtil(root, 0);
+    }
 
 	public static void main(String[] args) {
 		SumofRootToLeafBinaryNumbers s = new SumofRootToLeafBinaryNumbers();
