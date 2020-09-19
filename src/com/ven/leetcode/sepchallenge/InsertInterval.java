@@ -121,6 +121,5 @@ public class InsertInterval {
 		ArrayUtility.print(i.insert(new int[][] { { 3, 5 }, { 6, 9 } }, new int[] { 1, 2 }));
 		ArrayUtility.print(i.insert(new int[][] { { 1, 3 }, { 6, 9 } }, new int[] { 10, 11 }));
 		ArrayUtility.print(i.insert(new int[][] { { 1, 5 } }, new int[] { 2, 3 }));
-
 	}
 }
