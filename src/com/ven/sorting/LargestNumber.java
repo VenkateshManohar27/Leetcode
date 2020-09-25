@@ -1,7 +1,6 @@
 package com.ven.sorting;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 /**
  * Given a list of non negative integers, arrange them such that they form the
