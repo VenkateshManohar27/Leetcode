@@ -8,6 +8,10 @@ public class ListNode {
 		val = x;
 	}
 	
+	public ListNode() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getVal() {
 		return val;
 	}
