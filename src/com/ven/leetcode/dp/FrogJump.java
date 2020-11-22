@@ -41,6 +41,7 @@ import java.util.HashMap;
  *
  */
 public class FrogJump {
+	//Fails to TLE
 	public boolean canCross(int[] stones) {
 		HashMap<Integer, Integer> unitsToIndex = new HashMap<>();
 		for (int i = 0; i < stones.length; i++) {

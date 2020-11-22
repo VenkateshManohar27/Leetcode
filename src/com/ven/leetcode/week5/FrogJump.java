@@ -44,36 +44,26 @@ public class FrogJump {
 	//private HashSet<Integer> st = new HashSet<>();
 
 	public boolean canCross(int[] stones) {
-		HashSet<Integer> st = new HashSet<>();
-		for (int i = 0; i < stones.length; i++) {
-			st.add(stones[i]);
-		}
-		return helper(st, 1, 1, stones[stones.length - 1]);
-	}
-
-	private boolean helper(HashSet<Integer> st, int pos, int jump, int target) {
-		if (pos == target) {
-			return true;
-		}
-		if (pos > target || !st.contains(pos)) {
-			return false;
-		}
-
-		boolean res1 = false, res2 = false, res3 = false;
-		if (pos + (jump + 1) > pos) {
-			res1 = helper(st, pos + (jump + 1), jump + 1, target);
-			if(res1) return res1;
-		}
-		if (pos + jump > pos) {
-			res2 = helper(st, pos + (jump), jump, target);
-			if(res2) return res2;
-		}
-		if (pos + (jump - 1) > pos) {
-			res3 = helper(st, pos + (jump - 1), jump, target);
-			if(res3) return res3;
-		}
-
-		return res1 || res2 || res3;
+		if (stones[1] != 1) return false;
+        int N = stones.length;
+        boolean [][] dp = new boolean[stones.length][N+1];
+        dp[0][1] = true;
+        for(int i = 1; i < N; i++) {
+            for(int j =i-1; j>=0; j--){
+                int diff = stones[i] - stones[j];
+                if(diff < 0 || diff > N || !dp[j][diff] ) continue;
+                
+                dp[i][diff] = true;
+                
+                if(diff - 1 >= 0) dp[i][diff - 1] = true;
+                if(diff + 1 <= N) dp[i][diff + 1] = true;
+                
+                if(i == N-1) return true;
+                
+            }
+        }
+        
+        return false;
 	}
 
 	public static void main(String[] args) {
