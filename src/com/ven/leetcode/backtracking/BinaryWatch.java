@@ -120,8 +120,8 @@ public class BinaryWatch {
 
 	public static void main(String[] args) {
 		BinaryWatch bw = new BinaryWatch();
-		System.out.println(bw.readBinaryWatch(0));
-		System.out.println(bw.readBinaryWatch(1));
-		System.out.println(bw.readBinaryWatch(2));
+		System.out.println(bw.readBinaryWatch2(0));
+		System.out.println(bw.readBinaryWatch2(1));
+		System.out.println(bw.readBinaryWatch2(2));
 	}
 }
