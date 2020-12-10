@@ -54,6 +54,12 @@ public class SegmentTree {
 		System.out.println(st.rangeQuery(1, 3));
 		System.out.println(st.rangeQuery(1, 2));
 		st = new SegmentTree(new int[] { -1, 2, 4, 0, 5 }, new Min());
+		
+		st = new SegmentTree(new int[] { -1, 2, 4, 0 }, new Sum());
+		System.out.println(st.rangeQuery(0, 3));
+		System.out.println(st.rangeQuery(1, 3));
+		System.out.println(st.rangeQuery(1, 2));
+		st = new SegmentTree(new int[] { -1, 2, 4, 0, 5 }, new Sum());
 
 	}
 }
