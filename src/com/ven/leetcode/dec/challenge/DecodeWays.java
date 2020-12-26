@@ -1,4 +1,4 @@
-package com.ven.leetcode.dp;
+package com.ven.leetcode.dec.challenge;
 
 /**
  * A message containing letters from A-Z is being encoded to numbers using the
