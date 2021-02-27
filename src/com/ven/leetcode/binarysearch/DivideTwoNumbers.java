@@ -25,33 +25,31 @@ package com.ven.leetcode.binarysearch;
  */
 public class DivideTwoNumbers {
 	public int divide(int dividend, int divisor) {
-		if (dividend == 0) {
-			return 0;
-		}
+		if (dividend == Integer.MIN_VALUE && divisor == -1)
+			return Integer.MAX_VALUE;
 
-		int sign = 1;
-		if (dividend < 0 || divisor < 0) {
-			sign = -1;
-		}
+		int sign = (dividend < 0) ^ (divisor < 0) ? -1 : 1;
+		int result = 0;
+		int power = 32;
+		long x = Math.abs((long) dividend);
+		long y = Math.abs((long) divisor);
 
-		int mid = 0;
-		int count = Math.abs(divisor) - 1;
-		int start = 1, end = Math.abs(dividend);
-		while (count > 0) {
-			mid = start + (end - start) / 2;
-			end = mid;
-			count--;
+		while (x >= y) {
+			while ((y << power) > x) {
+				power--;
+			}
+			x -= y << power;
+			result += 1 << power;
 		}
-
-		return sign * mid;
+		return result * sign;
 	}
-	
+
 	public static void main(String[] args) {
 		DivideTwoNumbers tn = new DivideTwoNumbers();
-		assert((tn.divide(10, 3) == 3));
-		assert((tn.divide(7, -3) == -2));
-		assert((tn.divide(10, -2) == -5));
-		assert((tn.divide(10, 2) == 5));
-		assert((tn.divide(100, 10) == 0));
+		assert ((tn.divide(10, 3) == 3));
+		assert ((tn.divide(7, -3) == -2));
+		assert ((tn.divide(10, -2) == -5));
+		assert ((tn.divide(10, 2) == 5));
+		assert ((tn.divide(100, 10) == 10));
 	}
 }
