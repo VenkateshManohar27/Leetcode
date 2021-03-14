@@ -34,7 +34,6 @@ package com.ven.leetcode.week232;
  */
 public class CheckifOneStringSwapCanMakeStringsEqual {
 	public boolean areAlmostEqual(String s1, String s2) {
-		System.out.println(s1 + " " + s2);
 		int diff = 0;
 		int[] chrs1 = new int[26];
 		int[] chrs2 = new int[26];
@@ -45,16 +44,13 @@ public class CheckifOneStringSwapCanMakeStringsEqual {
 			chrs1[s1.charAt(i) - 'a']++;
 			chrs2[s2.charAt(i) - 'a']++;
 		}
-
-		int charDifferences = 0;
+		
 		for (int i = 0; i < 26; i++) {
 			if (chrs1[i] != chrs2[i]) {
-				charDifferences += Math.abs(chrs1[i] - chrs2[i]);
+				return false;
 			}
 		}
-		System.out.println(charDifferences);
-		System.out.println(diff);
-
-		return ((charDifferences == 0) && (diff == 0 || diff == 2)) ? true : false;
+		
+		return (diff == 0 || diff == 2) ? true : false;
 	}
 }
