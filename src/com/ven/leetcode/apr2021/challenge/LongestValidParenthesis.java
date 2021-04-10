@@ -1,30 +1,26 @@
 package com.ven.leetcode.apr2021.challenge;
+
+import java.util.Stack;
+
 // this does not work
 public class LongestValidParenthesis {
-	public int longestValidParentheses(String A) {
-        int length = 0;
-        int validParenthesis = 0;
-        int max = 0;
-        for(int i = 0; i< A.length(); i++){
-            char c = A.charAt(i);
-            if(c == '('){
-            	validParenthesis++;
-            }else{
-            	if(validParenthesis > 0) {
-            		validParenthesis--;
-            		length +=2;
-            		max = Math.max(max, length);
-            	}
-            	if(validParenthesis < 0) {
-            		validParenthesis = 0;
-            		length = 0;
-            	}
-            }
-            
-            
-        }
-        
-        return max;
+	public int longestValidParentheses(String s) {
+		int maxans = 0;
+		Stack<Integer> stack = new Stack<>();
+		stack.push(-1);
+		for (int i = 0; i < s.length(); i++) {
+			if (s.charAt(i) == '(') {
+				stack.push(i);
+			} else {
+				stack.pop();
+				if (stack.empty()) {
+					stack.push(i);
+				} else {
+					maxans = Math.max(maxans, i - stack.peek());
+				}
+			}
+		}
+		return maxans;
     }
 	
 	public static void main(String[] args) {
