@@ -32,51 +32,55 @@ import java.util.HashMap;
  */
 public class SuperPalindromes {
 	public int superpalindromesInRange(String left, String right) {
-        long L = Long.valueOf(left);
-        long R = Long.valueOf(right);
-        int MAGIC = 100000;
-        int ans = 0;
+		Long l = Long.valueOf(left);
+		Long r = Long.valueOf(right);
+		int MAGIC = 100000;
+		int ans = 0;
+		// odd length
+		for (int i = 1; i < MAGIC; i++) {
+			StringBuilder sb = new StringBuilder(Integer.toString(i));
+			for (int j = sb.length() - 2; j >= 0; j--) {
+				sb.append(sb.charAt(j));
+			}
+			Long v = new Long(sb.toString());
+			v *= v;
+			if (v > r)
+				break;
+			if (v >= l && isPalindrome(v))
+				ans++;
+		}
 
-        // count odd length;
-        for (int k = 1; k < MAGIC; ++k) {
-            StringBuilder sb = new StringBuilder(Integer.toString(k));
-            for (int i = sb.length() - 2; i >= 0; --i)
-                sb.append(sb.charAt(i));
-            long v = Long.valueOf(sb.toString());
-            v *= v;
-            if (v > R) break;
-            if (v >= L && isPalindrome(v)) ans++;
-        }
+		// even length
+		for (int i = 1; i < MAGIC; i++) {
+			StringBuilder sb = new StringBuilder(Integer.toString(i));
+			for (int j = sb.length() - 1; j >= 0; j--) {
+				sb.append(sb.charAt(j));
+			}
+			Long v = new Long(sb.toString());
+			v *= v;
+			if (v > r)
+				break;
+			if (v >= l && isPalindrome(v))
+				ans++;
+		}
+		return ans;
+	}
 
-        // count even length;
-        for (int k = 1; k < MAGIC; ++k) {
-            StringBuilder sb = new StringBuilder(Integer.toString(k));
-            for (int i = sb.length() - 1; i >= 0; --i)
-                sb.append(sb.charAt(i));
-            long v = Long.valueOf(sb.toString());
-            v *= v;
-            if (v > R) break;
-            if (v >= L && isPalindrome(v)) ans++;
-        }
+	public boolean isPalindrome(long x) {
+		return x == reverse(x);
+	}
 
-        return ans;
-    }
+	public long reverse(long x) {
+		long ans = 0;
+		while (x > 0) {
+			ans = 10 * ans + x % 10;
+			x /= 10;
+		}
 
-    public boolean isPalindrome(long x) {
-        return x == reverse(x);
-    }
+		return ans;
+	}
 
-    public long reverse(long x) {
-        long ans = 0;
-        while (x > 0) {
-            ans = 10 * ans + x % 10;
-            x /= 10;
-        }
-
-        return ans;
-    }
-    
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 		SuperPalindromes s = new SuperPalindromes();
 		s.superpalindromesInRange("4", "1000");
 	}

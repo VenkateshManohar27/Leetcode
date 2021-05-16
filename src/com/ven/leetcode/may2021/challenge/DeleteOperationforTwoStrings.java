@@ -1,5 +1,9 @@
 package com.ven.leetcode.may2021.challenge;
 
+import java.util.Arrays;
+
+import com.ven.utility.ArrayUtility;
+
 /**
  * Given two strings word1 and word2, return the minimum number of steps
  * required to make word1 and word2 the same.
@@ -39,6 +43,38 @@ public class DeleteOperationforTwoStrings {
 			}
 		}
 
+		ArrayUtility.print(dp);
 		return (m + n) - 2 * dp[m][n];
+	}
+
+	public int minDistance2(String word1, String word2) {
+		int m = word1.length();
+		int n = word2.length();
+		int[][] dp = new int[m + 1][n + 1];
+		return m + n - 2 * lcs(word1, word2, m, n, dp);
+
+	}
+
+	private int lcs(String w1, String w2, int m, int n, int[][] dp) {
+		if (m == 0 || n == 0) {
+			return 0;
+		}
+		if (dp[m][n] > 0)
+			return dp[m][n];
+		if (w1.charAt(m - 1) == w2.charAt(n - 1)) {
+			dp[m][n] = 1 + lcs(w1, w2, m - 1, n - 1, dp);
+		} else {
+			dp[m][n] = Math.max(lcs(w1, w2, m, n - 1, dp), lcs(w1, w2, m - 1, n, dp));
+		}
+		return dp[m][n];
+	}
+
+	public static void main(String[] args) {
+		DeleteOperationforTwoStrings d = new DeleteOperationforTwoStrings();
+		System.out.println(d.minDistance("sea", "eat"));
+		System.out.println(d.minDistance("sea", "eeat"));
+
+		System.out.println(d.minDistance2("sea", "eat"));
+		System.out.println(d.minDistance2("sea", "eeat"));
 	}
 }

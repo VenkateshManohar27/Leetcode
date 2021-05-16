@@ -1,7 +1,5 @@
 package com.ven.leetcode.hard;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 /**
  * Validate if a given string can be interpreted as a decimal number.
  * 
@@ -22,63 +20,40 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class ValidNumber {
 	public boolean isNumber(String s) {
-		boolean isValid = false;
-		if (s == null) {
-			return isValid;
+		char prev = '\t';
+		boolean eFound = false;
+		boolean dFound = false;
+		int numAfterE = 0;
+		int numAfterD = 0;
+		int numBeforeD = 0;
+		for (char ch : s.toCharArray()) {
+			System.out.println(ch);
+			if (ch == '+' || ch == '-') {
+				if (prev != '\t' && prev != 'e' && prev != 'E')
+					return false;
+			} else if (ch == 'e' || ch == 'E') {
+				if (eFound)
+					return false;
+				eFound = true;
+			} else if (ch == '.') {
+				if (eFound || dFound)
+					return false;
+				dFound = true;
+			} else if (ch >= '0' && ch <= '9') {
+				if (eFound)
+					numAfterE++;
+				else if (dFound)
+					numAfterD++;
+				else
+					numBeforeD++;
+			} else
+				return false;
+			prev = ch;
 		}
-		s = s.trim();
-		if(s.isEmpty()){
-            return false;
-        }
-		int i = 0;
-		boolean isExponential = false;
-		boolean isDecimal = false;
-		while (i < s.length()) {
-			if (i == 0 && (s.charAt(i) == '+' || s.charAt(i) == '-') || Character.isDigit(s.charAt(i))) {
-				i++;
-				continue;
-			} else if (Character.isDigit(s.charAt(i))) {
-				i++;
-				continue;
-			} else if (s.charAt(i) == 'e') {
-				if(i==0) {
-					return false;
-				}
-				if (!isExponential) {
-					isExponential = true;
-					i++;
-					if (i < s.length()) {
-						if ((s.charAt(i) == '+' || s.charAt(i) == '-')) {
-							i++;
-						}
-						if (i < s.length() && Character.isDigit(s.charAt(i))) {
-							i++;
-							continue;
-						}
-					}
-					return false;
-				} else {
-					return false;
-				}
-			} else if (s.charAt(i) == '.') {
-				if (isDecimal || isExponential) {
-					return false;
-				}
-				isDecimal = true;
-				i++;
-				if(i==s.length()  ) {
-					
-				}
-				if (i < s.length() && Character.isDigit(s.charAt(i))) {
-					i++;
-					continue;
-				} else {
-					return false;
-				}
-			}
+		if (numBeforeD == 0 && numAfterD == 0)
 			return false;
-		}
-
+		if (eFound && numAfterE == 0)
+			return false;
 		return true;
 	}
 
