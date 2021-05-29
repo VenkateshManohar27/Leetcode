@@ -50,4 +50,26 @@ public class MaximumErasureValue {
 		}
 		return max;
 	}
+	
+	public int maximumUniqueSubarrayOp(int[] nums) {
+	       boolean[] visited = new boolean[10001];
+	        
+	        int l = 0, r= 0, max =0, runningSum = 0;
+	        
+	        while(l <= r  && r < nums.length){
+	            int num = nums[r];
+	            while(visited[num]){
+	                int n = nums[l];
+					visited[n] = false;
+					runningSum -= n;
+	                l++;
+	            }
+	            visited[num] = true;
+	            runningSum += num;
+	            r++;
+	            max = Math.max(max, runningSum);
+
+	        }
+	        return max;
+	    }
 }
