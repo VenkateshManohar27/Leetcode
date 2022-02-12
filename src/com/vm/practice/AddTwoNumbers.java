@@ -39,7 +39,8 @@ public class AddTwoNumbers {
 		l2.next.next = new ListNode(4);
 		AddTwoNumbers atn = new AddTwoNumbers();
 		ListNode res = atn.addTwoNumbers(l1, l2);
-	
+	 String s = "TEST.290190.20029090902";
+	 System.out.println(s.substring(s.lastIndexOf(".")+1));
 	}
 }
 
